@@ -1,0 +1,120 @@
+#!/bin/bash
+
+#Declarando variaveis
+aux=0
+
+echo "================================================================"
+echo -e "\t\tExecutando a instalacao do AGLinux\n"
+
+#Criando diretorio com suas devidas permissoes no /etc
+
+echo -e "Criando diretorio com suas devidas permissoes.\n"
+
+sudo mkdir /etc/AGLinux
+
+if [ $? == 0 ];
+then
+	echo "Diretorio criado com sucesso /etc/AGLiniux"
+else
+	aux=$((aux+1))
+	echo -e "\nFalha ao criar diretorio."
+fi
+	
+echo -e "\n===========================================\n"
+#Setando as permissoes do diretorio
+
+echo -e "Setando permissoes do diretorio /etc/AGLinux\n"
+
+sudo chmod 755 /etc/AGLinux
+
+if [ $? == 0 ];
+then
+        echo "Permissoes setadas com sucesso /etc/AGLinux"
+else
+	aux=$((aux+1))
+        echo -e "\nFalha ao setar permissoes ao diretorio."
+fi
+
+echo -e "\n===========================================\n"
+#Enviando todos os arquivos de execução do AGLinux
+
+echo -e "Enviando arquivos de execucao ao diretorio /etc/AGLinux/app\n"
+
+sudo mv app /etc/AGLinux/
+
+if [ $? == 0 ];
+then
+        echo "Arquivos enviados com sucesso /etc/AGLiniux"
+else
+	aux=$((aux+1))
+        echo -e "\nFalha ao enviar arquivos."
+fi
+
+echo -e "\n===========================================\n"
+#Setando as permissoes dos arquivos .sh do diretorio app
+
+echo -e "Setando permissoes de todos os arquivos .sh /etc/AGLinux/app/\n"
+
+sudo chmod 777 /etc/AGLinux/app/*.sh
+
+if [ $? == 0 ];
+then
+        echo "Permissoes setadas com sucesso /etc/AGLiniux/*.sh"
+else
+	aux=$((aux+1))
+        echo -e "\nFalha ao setar permissoes dos arquivos."
+fi
+
+echo -e "\n===========================================\n"
+#Setando permissoes do arquivo AGLinux
+
+echo -e "Setando permissoes do arquivo de execucao do AGLinux.\n"
+
+sudo chmod 777 /etc/AGLinux/app/AGLinux
+
+if [ $? == 0 ];
+then
+        echo "Permissoes setadas com sucesso /etc/AGLiniux/app/AGLinux"
+else
+	aux=$((aux+1))
+        echo -e "\nFalha ao setar permissoes."
+fi
+
+echo -e "\n===========================================\n"
+#Envidando arquivo AGLinux para o /usr/bin/
+
+echo -e "Enviando arquivo AGLinux para /usr/bin/\n"
+
+sudo mv /etc/AGLinux/app/AGLinux /usr/bin/
+
+if [ $? == 0 ];
+then
+        echo "Arquivo enviado com sucesso /usr/bin/AGLinux"
+else
+	aux=$((aux+1))
+        echo -e "\nFalha ao enviar arquivo."
+fi
+
+echo -e "\n===========================================\n"
+#Apagando diretorio vazio do AGLinux
+
+echo -e "Apagando diretorio vazio do AGLinux do diretorio atual.\n"
+
+sudo rm -rf ../AGLinux
+
+if [ $? == 0 ];
+then
+        echo "Diretorio apagado com sucesso."
+else
+	aux=$((aux+1))
+        echo -e "\nFalha ao apagar diretorio."
+fi
+
+echo -e "\n===========================================\n\n"
+
+if [ $aux == 0 ];
+then
+	echo -e "Execucao finalizada com sucesso!\n"
+else
+	echo -e "Execucao finalizada com erros.\n"
+fi

@@ -1,0 +1,26 @@
+#!/bin/bash
+#Este arquivo deve estar no /scripts/ e ser colocado pelo root com permissão 777 para rodar corretamente
+
+
+#Sistema - script que mostra informacoes sobre o sistema
+
+#Se ele digitou 'n' vamos interromper o script
+test "$RESPOSTA" = "n" && exit
+
+#O date mostra a data e a hora corrente
+echo "Data e Horario: "
+date
+echo -e "\n==================================================="
+
+#O df mostra as particoes e quanto cada uma ocupa em disco
+echo "Uso em disco:"
+df
+echo -e "\n==================================================="
+
+#O w mostra os usuarios que estao conectados nesta maquina
+echo "Usuarios conectados:"
+w
+echo -e "\n==================================================="
+
+echo -e "\n"
+read -p "Aperte enter" p

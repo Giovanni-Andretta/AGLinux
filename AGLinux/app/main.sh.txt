@@ -1,0 +1,76 @@
+#!/bin/bash
+
+#Validação de usuario
+
+#read -p "Login: " login
+#test "$login" != "giovanni" && clear && echo -e "Nome de usuario incorreto...\n\n" && exit
+
+#clear
+
+#read -p "Senha: " senha
+#test "$senha" != "12345" && clear && echo -e "Senha incorreta...\n\n" && exit
+
+#clear
+
+
+#Menu
+
+menu(){
+echo -e "\n\n"
+while [[ $opt -ne 6 ]];
+do
+
+date +%c
+
+echo -e "\n"
+
+echo -e "\t====================================================="
+echo -e "\t   \t\tBem Vindo \033[01;31m$LOGNAME\033[00;37m  "
+echo -e "\t||                                                 ||"
+echo -e "\t|| 1-)                                             ||"
+echo -e "\t|| 2-) Atualizar                                   ||"
+echo -e "\t|| 3-) Contar arquivos ou apagar                   ||"
+echo -e "\t|| 4-) Informações do sistema                      ||"
+echo -e "\t|| 5-)                                             ||"
+echo -e "\t|| 6-) Sair                                        ||"
+echo -e "\t||                                                 ||"
+echo -e "\t||_________________________________________________||"
+
+echo -e "\n\n"
+read -p "Qual opção você escolhe? " opt
+
+case $opt in
+
+	1)
+		
+		clear;;
+
+	2)      
+		clear;;
+
+	3)
+		/./etc/AGLinux/app/contararquivos.sh
+		clear;;
+
+	4)
+		/./etc/AGLinux/app/controle.sh
+		clear;;
+
+	5)
+	 
+		clear;;
+
+	6)
+		clear
+		exit;;
+	*)
+		clear
+		echo -e "Opção invalida...\n\n\n\n"
+		sleep 1
+		clear
+
+esac
+done
+}
+
+menu

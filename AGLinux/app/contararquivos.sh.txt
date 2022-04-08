@@ -1,0 +1,165 @@
+#!/bin/bash
+#Este arquivo deve estar no /scripts/ e ser colocado pelo root com permissão 777 para rodar corretamente
+
+clear
+
+Inicial(){
+
+echo -e "Listagem do diretorio atual:\n"
+for dir in `pwd`/*;
+do
+echo "$dir"
+done
+
+echo -e "\n\nSe desejar sair digite exit"
+echo -e "Se desejar listar o path digite \033[0;32mls\033[0m"
+echo -e "Se desejar apagar algum arquivo digite \033[0;31mrm\033[0m\n\n"
+read -p "Digite o path que deseja saber quantos arquivos existem la: " path
+
+case $path in
+
+	"ls")
+		Cls
+		;;
+
+	"rm")
+		Crm
+		;;
+
+	*)
+
+	if [ "$path" == "exit" ];
+	then
+	clear
+	exit
+fi
+	Ccontagem
+	;;
+	
+
+esac
+
+}
+
+
+Cls(){
+#Codigo do ls
+
+if [ "$path" == "ls" ];
+then
+
+echo
+read -p "Digite o path para ser listado: " pathls
+echo
+
+for dir in $pathls*;
+do
+echo "$dir"
+done
+fi
+
+echo
+
+Inicial
+}
+
+
+
+Crm(){
+
+#Codigo do rm
+
+if [ "$path" == "rm" ];
+then
+
+path="";
+pathrm="";
+
+while [[ "$pathrm" -eq "v" ]];
+do
+
+opt="";
+
+clear
+echo -e "Se deseja sair do \033[0;31mrm\033[0m digite exit\n\n"
+read -p "Digite o path para ser listado: " path
+echo
+
+if [ "$path" == "exit" ];
+then
+	clear
+	Inicial
+fi
+
+for dir in $path*;
+do
+echo "$dir"
+done
+
+echo -e "\nSe quiser sair do \033[0;31mrm\033[0m digite exit"
+echo -e "Se o Path estiver incorreto digite [v] para voltar\n\n"
+echo -e "Digite o path completo do conteudo que você deseja \033[031mapagar\033[0m: "
+read -p "Path: " pathrm
+
+#While do pathrm
+done
+
+if [ "$pathrm" == "exit" ];
+then
+	clear
+	Inicial
+fi
+
+clear
+
+echo -e "Você realmente deseja apagar \033[031m$pathrm\033[0m?"
+read -p "[s/n]: " opt
+
+if [ "$opt" == "s" ];
+then
+	clear
+
+	`rm -rf $pathrm`
+
+	echo -e "\033[0;32mArquivo apagado!\033[0m\n\n"
+	read -p "Aperte enter para sair..."
+
+#Ultimo if
+fi
+
+#Primeiro if
+fi
+
+Inicial
+}
+
+
+
+
+
+Ccontagem(){
+#Codigo de contagem
+
+COUNT=0
+
+for i in `ls $path`
+do
+COUNT=$((COUNT+1))
+done
+		
+clear
+if [ "$COUNT" == "0" ];
+then
+echo "Nenhum arquivo encontrado..."
+else
+echo "Foram encontrados $COUNT arquivos no path: $path"
+fi
+echo -e "\n\n\n\n"
+read -p "Aprente enter para continuar..."
+
+clear
+Inicial
+
+}
+
+Inicial

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#Executando o arquivo main.sh do AGLinux
+
+/./etc/AGLinux/app/main.sh

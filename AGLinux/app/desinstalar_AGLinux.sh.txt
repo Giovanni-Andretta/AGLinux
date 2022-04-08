@@ -1,0 +1,44 @@
+#!/bin/bash
+
+aux=0
+
+#Apagando diretorio principal do AGLinux
+
+echo "=========================================================================="
+echo -e "\t\tExecutando desinstalador do AGLinux\n"
+
+echo -e "Apagando diretorio principal do AGLinux\n"
+sudo rm -rf /etc/AGLinux
+
+if [ $? == 0 ];
+then
+	echo "Diretorio apagado com sucesso!"
+else
+	aux=$((aux+1))
+	echo "\nFalha ao apagar o diretorio."
+fi
+
+echo -e "\n=================================================\n"
+#Apagando arquivo de execucao
+
+echo -e "Apagando arquivo de execucao /usr/bin/AGLinux\n"
+sudo rm -rf /usr/bin/AGlinux
+
+if [ $? == 0 ];
+then
+	echo "Arquivo apagado com sucesso!"
+else
+	aux=$((aux+1))
+	echo -e "\nFalha ao apagar arquivo."
+fi
+
+echo -e "\n=================================================\n"
+
+if [ $aux == 0 ];
+then
+	echo "AGLinux desistalado com sucesso!"
+else
+	echo "Falha ao desistalar o AGLinux."
+fi
+
+echo
