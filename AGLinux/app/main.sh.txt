@@ -17,7 +17,7 @@
 
 menu(){
 echo -e "\n\n"
-while [[ $opt -ne 6 ]];
+while [[ $opt -ne 5 ]];
 do
 
 date +%c
@@ -27,12 +27,12 @@ echo -e "\n"
 echo -e "\t====================================================="
 echo -e "\t   \t\tBem Vindo \033[01;31m$LOGNAME\033[00;37m  "
 echo -e "\t||                                                 ||"
-echo -e "\t|| 1-)                                             ||"
-echo -e "\t|| 2-) Atualizar                                   ||"
-echo -e "\t|| 3-) Contar arquivos ou apagar                   ||"
+echo -e "\t|| 1-) Atualizar                                   ||"
+echo -e "\t|| 2-) Gerenciador de arquivos                     ||"
+echo -e "\t|| 3-) Gerenciador de usuários                     ||"
 echo -e "\t|| 4-) Informações do sistema                      ||"
-echo -e "\t|| 5-)                                             ||"
-echo -e "\t|| 6-) Sair                                        ||"
+echo -e "\t||                                                 ||"
+echo -e "\t|| 5-) Sair                                        ||"
 echo -e "\t||                                                 ||"
 echo -e "\t||_________________________________________________||"
 
@@ -46,10 +46,11 @@ case $opt in
 		clear;;
 
 	2)      
+		/./etc/AGLinux/app/arquivos.sh
 		clear;;
 
 	3)
-		/./etc/AGLinux/app/contararquivos.sh
+		/./etc/AGLinux/app/usuarios.sh
 		clear;;
 
 	4)
@@ -58,11 +59,11 @@ case $opt in
 
 	5)
 	 
-		clear;;
-
-	6)
 		clear
 		exit;;
+
+	6)
+		clear;;
 	*)
 		clear
 		echo -e "Opção invalida...\n\n\n\n"

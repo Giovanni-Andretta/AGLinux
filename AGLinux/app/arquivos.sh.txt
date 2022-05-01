@@ -1,0 +1,146 @@
+#!/bin/bash
+#Este arquivo deve estar no /scripts/ e ser colocado pelo root com permissão 777 para rodar corretamente
+
+Inicial(){
+
+echo -e "\n========================================================================"
+echo -e "\t\tGerenciador de arquivos\n"
+
+echo -e "Listagem do diretorio atual:\n"
+
+ls -lt
+
+echo -e "\nAtualmente você está no path: `pwd`"
+
+echo -e "\n\n[1] - Listar os conteudos de um path expecifico"
+echo -e "[2] - Apagar arquivo ou diretorio"
+echo -e "\n[3] - Voltar ao menu principal\n\n"
+
+read -p "Digite sua opção: " opt
+
+case $opt in
+
+	1)
+		Cls
+		;;
+
+	2)
+		Crm
+		;;
+
+	3)
+		EXIT
+		;;
+
+	*)
+
+		echo -e "\nOpção invalida...\n"
+		sleep 1
+		clear
+		Inicial
+		;;
+
+esac
+
+}
+
+
+Cls(){
+#Codigo do ls
+
+echo
+read -p "Digite o path para ser listado: " pathls
+echo
+
+ls -lt $pathls
+
+echo
+
+Inicial
+}
+
+
+
+Crm(){
+
+#Codigo do rm
+
+path="";
+pathrm="";
+opt="";
+
+
+echo -e "\n\nListagem do diretorio atual:\n"
+for dir in `pwd`/*;
+do
+echo "$dir"
+done
+
+echo -e "\n\n[0] - Para voltar ao menu do Gerenciador de arquivos\n\n"
+read -p "Digite o path a ser listado: " path
+echo
+
+if [ "$path" == 0 ];
+then
+	Inicial
+fi
+
+while [ "$opt" != "n" ];
+do
+
+echo -e "\n\nListagem do diretorio expecificado:\n"
+
+ls -lt $path
+
+echo -e "\n\nListagem do diretorio expecificado contendo o caminho absoluto:\n"
+for dir in $path*;
+do
+echo "$dir"
+done
+
+echo -e "\n\n[0] - Para voltar ao menu do Gerenciador de arquivos"
+echo -e "[1] - Se o Path estiver incorreto\n\n"
+echo -e "Se quiser apagar mais de um arquivo ou diretorio, de espaco entre um caminho absoluto e o outro\n\n"
+echo -e "*** Digite o caminho absoluto do arquivo ou diretorio que você deseja \033[031mapagar\033[0m ***\n"
+read -p "Caminho absoluto: " pathrm
+
+if [ "$pathrm" == 0 ];
+then
+        Inicial
+elif [ "$pathrm" == 1 ];
+then
+	Crm
+fi
+
+echo -e "\nVocê realmente deseja apagar \033[031m$pathrm\033[0m\n"
+read -p "[s/n]: " opt
+
+if [ "${opt,}" == "s" ];
+then
+	echo
+	
+	sudo rm -rf $pathrm
+	
+	if [ $? == 0 ];
+	then
+        	echo -e "\033[0;32mApagado!\033[0m\n"
+	else
+        	echo -e "\nFalha ao apagar."
+	fi
+else
+	Crm
+fi
+
+echo -e  "\nDeseja apagar novamente?\n"
+read -p "[s/n]: " opt
+done
+
+Inicial
+}
+
+EXIT(){
+        clear
+        exit
+}
+
+Inicial
