@@ -13,8 +13,9 @@ ls -lt
 echo -e "\nAtualmente você está no path: `pwd`"
 
 echo -e "\n\n[1] - Listar os conteudos de um path expecifico"
-echo -e "[2] - Apagar arquivo ou diretorio"
-echo -e "\n[3] - Voltar ao menu principal\n\n"
+echo -e "[2] - Apagar arquivos ou diretorios"
+echo -e "[3] - Criar arquivos ou diretorios"
+echo -e "\n[4] - Voltar ao menu principal\n\n"
 
 read -p "Digite sua opção: " opt
 
@@ -29,6 +30,10 @@ case $opt in
 		;;
 
 	3)
+		Cmk
+		;;
+
+	4)
 		EXIT
 		;;
 
@@ -134,6 +139,169 @@ fi
 echo -e  "\nDeseja apagar novamente?\n"
 read -p "[s/n]: " opt
 done
+
+Inicial
+}
+
+Cmk(){
+
+echo -e "\n================================================================"
+
+opt="";
+path="";
+pathtouch="";
+pathmkdir="";
+
+echo -e "\n[1] - Criar arquivo"
+echo -e "[2] - Criar diretorio"
+echo -e "\n[0] - Voltar ao Gerenciador de arquivos\n\n"
+
+read -p "Digite sua opção: " opt
+
+if [ $opt == 0 ];
+then
+	Inicial
+elif [ $opt == 1 ];
+then
+
+while [ "$opt" != "n" ];
+do
+
+echo -e "\n================================================================\n"
+
+echo -e "Listagem do diretorio atual:\n"
+
+ls -lt
+
+echo -e "\nListagem do diretorio atual, contendo o caminho absoluto:\n"
+for dir in `pwd`/*;
+do
+echo "$dir"
+done
+
+echo -e "\n\n[0] - Para voltar ao Gerenciador de arquivos\n\n"
+read -p "Digite o path a ser listado: " path
+
+if [ $path == 0 ];
+then
+	Inicial
+fi
+
+echo -e "\n================================================================"
+
+echo -e "\nListagem do diretorio expecificado:\n"
+
+ls -lt $path
+
+echo -e "\n\nListagem do diretorio expecificado contendo o caminho absoluto:\n"
+for dir in $path*;
+do
+echo "$dir"
+done
+
+echo -e "\n\n[0] - Para voltar ao Gerenciador de arquivos"
+echo -e "[1] - Se o Path estiver incorreto\n\n"
+echo "Se quiser criar mais de um arquivo, de espaço entre um caminho absoluto e o outro"
+echo -e "\nSe você só digitar o nome do arquivo ele será criado em sua posição atual.\n\nPosição atual: `pwd`\n\n"
+echo -e "*** Coloque o nome do arquivo no final do caminho absoluto ***\n"
+
+read -p "Caminho absoluto: " pathtouch 
+
+if [ "$pathtouch" == 0 ];
+then
+        Inicial
+elif [ "$pathtouch" == 1 ];
+then
+        Cmk
+fi
+
+sudo touch $pathtouch
+
+if [ $? == 0 ];
+then
+	echo -e "\nArquivo criado com sucesso!\n"
+else
+        echo -e "\nFalha ao criar o arquivo.\n"
+fi
+
+echo -e  "\nDeseja criar outro arquivo?\n"
+read -p "[s/n]: " opt
+
+done
+
+elif [ $opt == 2 ];
+then
+
+while [ "$opt" != "n" ];
+do
+
+echo -e "\n================================================================\n"
+
+echo -e "Listagem do diretorio atual:\n"
+
+ls -lt
+
+echo -e "\nListagem do diretorio atual, contendo o caminho absoluto:\n"
+for dir in `pwd`/*;
+do
+echo "$dir"
+done
+
+echo -e "\n\n[0] - Para voltar ao Gerenciador de arquivos\n\n"
+read -p "Digite o path a ser listado: " path
+
+if [ $path == 0 ];
+then
+	Inicial
+fi
+
+echo -e "\n================================================================"
+
+echo -e "\n\nListagem do diretorio expecificado:\n"
+
+ls -lt $path
+
+echo -e "\n\nListagem do diretorio expecificado contendo o caminho absoluto:\n"
+for dir in $path*;
+do
+echo "$dir"
+done
+
+echo -e "\n\n[0] - Para voltar ao Gerenciador de arquivos"
+echo -e "[1] - Se o Path estiver incorreto\n\n"
+echo "Se quiser criar mais de um diretorio, de espaço entre um caminho absoluto e o outro"
+echo -e "\nSe você só digitar o nome do diretorio ele será criado em sua posição atual.\n\nPosição atual: `pwd`\n\n"
+echo -e "*** Coloque o nome do diretorio no final do caminho absoluto ***\n"
+
+read -p "Caminho absoluto: " pathmkdir
+
+if [ "$pathmkdir" == 0 ];
+then
+        Inicial
+elif [ "$pathmkdir" == 1 ];
+then
+        Cmk
+fi
+
+sudo mkdir $pathmkdir
+
+if [ $? == 0 ];
+then
+	echo -e "\nDiretorio criado com sucesso!\n"
+else
+        echo -e "\nFalha ao criar o diretorio.\n"
+fi
+
+echo -e  "\nDeseja criar outro diretorio?\n"
+read -p "[s/n]: " opt
+
+done
+
+else
+	echo -e "\n\nOpção invalida..."
+	sleep 1
+	Cmk
+fi
 
 Inicial
 }
